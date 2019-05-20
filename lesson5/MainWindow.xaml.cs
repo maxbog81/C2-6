@@ -106,7 +106,11 @@ namespace lesson6
             }                
 
         }
-
+        /// <summary>
+        /// Изменение подразделения
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DeptbtnChg_Click(object sender, RoutedEventArgs e)
         {
             string dept = DepartCombo.Text;

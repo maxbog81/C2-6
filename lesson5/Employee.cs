@@ -56,7 +56,9 @@ namespace lesson6
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }
 
-
+        /// <summary>
+        /// Создание списка сотрудников
+        /// </summary>
         public void AddElement()
         {
             for (int i = 0; i < 10; i++)
