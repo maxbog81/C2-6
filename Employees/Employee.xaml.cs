@@ -26,10 +26,13 @@ namespace Employees
         public Employee()
         {
             InitializeComponent();
+            DataContext = this;
+            ListEmp = new ObservableCollection<Employee>();
             AddElement();
-            EmpView.ItemsSource = ListEmp;           
-            EmpCombo.ItemsSource = ListEmp;
+            //EmpView.ItemsSource = ListEmp;           
+            //EmpCombo.ItemsSource = ListEmp;
             DeptCombo.ItemsSource = Depart.ListDept;
+            DeptComboFiltr.ItemsSource = Depart.ListDept;
         }
 
         public Employee(string empname, string dept)
@@ -39,7 +42,8 @@ namespace Employees
         }
 
         Random r = new Random();
-        public ObservableCollection<Employee> ListEmp = new ObservableCollection<Employee>();
+        public ObservableCollection<Employee> ListEmp { get; set; }
+        //public ObservableCollection<Employee> ListEmp = new ObservableCollection<Employee>();
         private string empname;
         public string EmpName
         {
@@ -78,9 +82,9 @@ namespace Employees
         /// </summary>
         public void AddElement()
         {
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 1000; i++)
             {
-                ListEmp.Add(new Employee($"Имя_{i}", $"Подразд_{r.Next(100, 103)}"));
+                ListEmp.Add(new Employee($"Имя_{i + 1}", $"Подразделение_{r.Next(1, Depart.DeptCount)}"));
             }
         }
 
@@ -131,6 +135,14 @@ namespace Employees
         {
             Department DepartmentPage = new Department();
             this.NavigationService.Navigate(DepartmentPage);
+        }
+
+        private void DeptComboFiltr_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (DeptComboFiltr.SelectedIndex > -1)
+                EmpView.ItemsSource = ListEmp.Where(w => w.Dept == (DeptComboFiltr.SelectedValue as Department)?.Dept);
+            else
+                EmpView.ItemsSource = ListEmp;
         }
     }
 }

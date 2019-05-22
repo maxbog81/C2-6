@@ -13,8 +13,10 @@
             <ColumnDefinition Width="70*"/>
             <ColumnDefinition Width="30*"/>
         </Grid.ColumnDefinitions>
+        <Label x:Name="label" Content="Фильтр по подразделениям:" HorizontalAlignment="Left" Height="24" Margin="23,5,0,0" VerticalAlignment="Top" Width="154"/>
+        <ComboBox x:Name="DeptComboFiltr" ItemsSource="{Binding ListDept}" IsEditable="True" DisplayMemberPath="Dept" HorizontalAlignment="Left" Height="20" Margin="180,5,0,0" VerticalAlignment="Top" Width="210" SelectionChanged="DeptComboFiltr_SelectionChanged"/>
 
-        <ListView x:Name="DeptView" Grid.Column="0" HorizontalAlignment="Left" Width="560" VirtualizingStackPanel.IsVirtualizing="True">
+        <ListView x:Name="DeptView" ItemsSource="{Binding ListDept}" Grid.Column="0" HorizontalAlignment="Left" Width="556" VirtualizingStackPanel.IsVirtualizing="True" Margin="4,44,0,0">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -34,13 +36,12 @@
             </ListView.View>
         </ListView>
         <StackPanel Grid.Column="2">
-
             <Label x:Name="DeptLabel" Content="Подразделение:" HorizontalContentAlignment="Center"  Margin="5" />
-            <ComboBox x:Name="DepartCombo" Margin="40,5,40,5" IsEditable="True" DisplayMemberPath="Dept" VirtualizingStackPanel.IsVirtualizing="True"/>
+            <ComboBox x:Name="DepartCombo" ItemsSource="{Binding ListDept}" Margin="40,5,40,5" IsEditable="True" DisplayMemberPath="Dept" VirtualizingStackPanel.IsVirtualizing="True"/>
             <Button x:Name="DeptbtnAdd" Margin="40,5,40,5" Content="Добавить" Click="DeptbtnAdd_Click" ToolTip="Добавление введенного подразделения"/>
+            <Button x:Name="DeptbtnChg" Margin="40,5,40,5" Content="Изменить" Click="DeptbtnChg_Click" ToolTip="Изменение выбранной строки на введенные данные"/>
             <Button x:Name="DeptbtnDel" Margin="40,5,40,5" Content="Удалить" ToolTip="Удаление выбранного в списке подразделения" Click="DeptbtnDel_Click"/>
-            <Button x:Name="DeptbtnChg" Margin="40,5,40,5" Content="Изменить" Click="DeptbtnChg_Click" ToolTip="Изменение выбранной строки"/>
-
         </StackPanel>
+ 
     </Grid>
 </Page>

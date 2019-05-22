@@ -25,9 +25,11 @@ namespace Employees
         public Department()
         {
             InitializeComponent();
+            DataContext = this;
+            ListDept = new ObservableCollection<Department>();
             AddElement();
-            DeptView.ItemsSource = ListDept;
-            DepartCombo.ItemsSource = ListDept;
+            //DeptView.ItemsSource = ListDept;
+            //DepartCombo.ItemsSource = ListDept;
 
         }
 
@@ -35,9 +37,9 @@ namespace Employees
         {
             Dept = dept;
         }
-
-        public ObservableCollection<Department> ListDept = new ObservableCollection<Department>();
-
+        public ObservableCollection<Department> ListDept { get; set; }
+        //public ObservableCollection<Department> ListDept = new ObservableCollection<Department>();
+        public int DeptCount { get; set; } = 100;
         private string dept;
         public string Dept
         {
@@ -54,10 +56,11 @@ namespace Employees
 
         public void AddElement()
         {
-            ListDept.Add(new Department($"Подразд_100"));
-            ListDept.Add(new Department($"Подразд_101"));
-            ListDept.Add(new Department($"Подразд_102"));
-            ListDept.Add(new Department($"Подразд_103"));
+            for (int i = 0; i < DeptCount; i++)
+            {
+                ListDept.Add(new Department($"Подразделение_{i + 1}"));
+            }
+
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -102,6 +105,14 @@ namespace Employees
                 (DeptView.SelectedItem as Department).Dept = dept;
             }
 
+        }
+
+        private void DeptComboFiltr_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (DeptComboFiltr.SelectedIndex > -1)
+                DeptView.ItemsSource = ListDept.Where(w => w.Dept == (DeptComboFiltr.SelectedValue as Department)?.Dept);
+            else
+                DeptView.ItemsSource = ListDept;
         }
     }
 }
